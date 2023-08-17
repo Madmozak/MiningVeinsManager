@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class ResourceNodes : MonoBehaviour, IInteractable
@@ -8,6 +9,7 @@ public class ResourceNodes : MonoBehaviour, IInteractable
     [SerializeField] ResourceNode rareResourceNode;
     ResourceNode spawnedResourceNode;
     bool isResourceNodeSpawned;
+    public Action OnCollectMaterials;
 
     public bool IsResourceNodeSpawned { get => isResourceNodeSpawned; set => isResourceNodeSpawned = value; }
 
@@ -17,6 +19,7 @@ public class ResourceNodes : MonoBehaviour, IInteractable
         DisableResourceNode(commonResourceNode);
         DisableResourceNode(rareResourceNode);
         isResourceNodeSpawned = false;
+
     }
 
 
@@ -49,5 +52,6 @@ public class ResourceNodes : MonoBehaviour, IInteractable
     public void Interact()
     {
         //Collect Mateirals
+        OnCollectMaterials?.Invoke();
     }
 }

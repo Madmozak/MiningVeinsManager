@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ResourcesSpawnManager : MonoBehaviour
 {
-    [SerializeField]private static ResourcesSpawnManager instance;
+    private static ResourcesSpawnManager instance;
     public static ResourcesSpawnManager Instance { get => instance; }
     public int RareResourceSpawnChance { get => rareResourceSpawnChance; set => rareResourceSpawnChance = value; }
 
@@ -12,21 +12,49 @@ public class ResourcesSpawnManager : MonoBehaviour
     [SerializeField] int rareResourceSpawnChance = 10;
     [SerializeField] float timeToSpawnResourceNode = 30;
     float timerForSpawn;
+    [SerializeField] int lowAmountOfResourceNodes = 2;
 
     private void Awake()
     {
         instance = this;
     }
+
     // Start is called before the first frame update
     void Start()
     {
         InitialSpawnResources();
+        SubscribeToResourceNodesCollection();
     }
 
     // Update is called once per frame
     void Update()
     {
         PeriodicResourceNodeSpawnLogic();
+    }
+
+    void SpawnOnLowResourceNodes()
+    {
+        int i = 0;
+        foreach (ResourceNodes resourceNodes in ironGoldDepositList)
+        {
+            if (resourceNodes.IsResourceNodeSpawned)
+            {
+                i++;
+            }
+
+            if(i <= lowAmountOfResourceNodes)
+            {
+                SpawnRandomResourceNode();
+            }
+        }
+    }
+
+    void SubscribeToResourceNodesCollection()
+    {
+        foreach (ResourceNodes resourceNodes in ironGoldDepositList)
+        {
+            resourceNodes.OnCollectMaterials += SpawnOnLowResourceNodes;
+        }
     }
 
     void PeriodicResourceNodeSpawnLogic()
