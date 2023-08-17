@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class ResourcesSpawnManager : MonoBehaviour
 {
+    private ResourcesSpawnManager instance;
+    public ResourcesSpawnManager Instance { get => instance; }
+
     [SerializeField] List<MetalDeposit> ironGoldDepositList = new();
 
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -17,6 +21,7 @@ public class ResourcesSpawnManager : MonoBehaviour
     {
         
     }
+
 
 
 }
