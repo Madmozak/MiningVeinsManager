@@ -8,12 +8,13 @@ public class ResourceNode : MonoBehaviour, IInteractable
 
     void Start()
     {
-
+        
     }
 
     public void CollectMaterials()
     {
         //add materials to inventory
+        OnCollectMaterials?.Invoke();
         DisableNode();
     }
 
