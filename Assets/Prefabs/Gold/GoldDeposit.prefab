@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 9001323712231973153}
   - component: {fileID: 3841962696801036331}
   - component: {fileID: 9204794273845464723}
-  - component: {fileID: 2701469940864895629}
+  - component: {fileID: 712878387327522123}
   m_Layer: 0
   m_Name: GoldDeposit
   m_TagString: Untagged
@@ -98,7 +98,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2701469940864895629
+--- !u!114 &712878387327522123
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -107,6 +107,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 4689935310826473614}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85eab78a7bbe8b64086f4ce4b4eb0e40, type: 3}
+  m_Script: {fileID: 11500000, guid: a4011975cfd9cad40bf0547b5093d92f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
