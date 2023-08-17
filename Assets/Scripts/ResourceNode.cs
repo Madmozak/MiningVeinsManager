@@ -1,10 +1,11 @@
 using System;
 using UnityEngine;
 
-public class ResourceNode : MonoBehaviour, IInteractable
+public class ResourceNode : MonoBehaviour
 {
     ScriptableObject resource;
     public Action OnCollectMaterials;
+
 
     void Start()
     {
@@ -28,8 +29,4 @@ public class ResourceNode : MonoBehaviour, IInteractable
         gameObject.SetActive(false);
     }
 
-    public void Interact()
-    {
-        CollectMaterials();
-    }
 }

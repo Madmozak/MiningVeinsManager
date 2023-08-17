@@ -2,29 +2,51 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ResourceNodes : MonoBehaviour
+public class ResourceNodes : MonoBehaviour, IInteractable
 {
     [SerializeField] ResourceNode commonResourceNode;
     [SerializeField] ResourceNode rareResourceNode;
+    ResourceNode spawnedResourceNode;
+    bool isResourceNodeSpawned;
+
+    public bool IsResourceNodeSpawned { get => isResourceNodeSpawned; set => isResourceNodeSpawned = value; }
 
     // Start is called before the first frame update
     void Start()
     {
-        commonResourceNode.DisableNode();
-        rareResourceNode.DisableNode();
+        DisableResourceNode(commonResourceNode);
+        DisableResourceNode(rareResourceNode);
+        isResourceNodeSpawned = false;
     }
 
-    public void SpawnResource(int i)
+    public void SpawnResource()
     {
-        if(i < ResourcesSpawnManager.Instance.RareResourceSpawnChance)
+        if(ResourcesSpawnManager.Instance.GetRandomInt100() < ResourcesSpawnManager.Instance.RareResourceSpawnChance)
         {
-            rareResourceNode.EnableNode();
+            EnableResourceNode(rareResourceNode);
+            spawnedResourceNode = rareResourceNode;
         }
         else
         {
-            commonResourceNode.EnableNode();
+            EnableResourceNode(commonResourceNode);
+            spawnedResourceNode = commonResourceNode;
         }
-        
+
+        isResourceNodeSpawned = true;
     }
 
+    public void EnableResourceNode(ResourceNode resourceNode)
+    {
+        resourceNode.gameObject.SetActive(true);
+    }
+
+    public void DisableResourceNode(ResourceNode resourceNode)
+    {
+        resourceNode.gameObject.SetActive(false);
+    }
+
+    public void Interact()
+    {
+        //Collect Mateirals
+    }
 }
