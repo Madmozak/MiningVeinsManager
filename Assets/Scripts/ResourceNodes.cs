@@ -35,23 +35,30 @@ public class ResourceNodes : MonoBehaviour, IInteractable
             EnableResourceNode(commonResourceNode);
             spawnedResourceNode = commonResourceNode;
         }
+    }
 
-        isResourceNodeSpawned = true;
+    void CollectResourceNode()
+    {
+        DisableResourceNode(spawnedResourceNode);
+        spawnedResourceNode = null;
+        OnCollectMaterials?.Invoke();
     }
 
     public void EnableResourceNode(ResourceNode resourceNode)
     {
         resourceNode.gameObject.SetActive(true);
+        isResourceNodeSpawned = true;
     }
 
     public void DisableResourceNode(ResourceNode resourceNode)
     {
         resourceNode.gameObject.SetActive(false);
+        isResourceNodeSpawned = false;
     }
 
     public void Interact()
     {
         //Collect Mateirals
-        OnCollectMaterials?.Invoke();
+        CollectResourceNode();
     }
 }

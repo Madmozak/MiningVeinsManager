@@ -7,6 +7,7 @@ public class ResourcesSpawnManager : MonoBehaviour
     private static ResourcesSpawnManager instance;
     public static ResourcesSpawnManager Instance { get => instance; }
     public int RareResourceSpawnChance { get => rareResourceSpawnChance; set => rareResourceSpawnChance = value; }
+    public List<ResourceNodes> IronGoldDepositList { get => ironGoldDepositList; set => ironGoldDepositList = value; }
 
     [SerializeField] List<ResourceNodes> ironGoldDepositList = new();
     [SerializeField] int rareResourceSpawnChance = 10;
@@ -35,23 +36,24 @@ public class ResourcesSpawnManager : MonoBehaviour
     void SpawnOnLowResourceNodes()
     {
         int i = 0;
-        foreach (ResourceNodes resourceNodes in ironGoldDepositList)
+        foreach (ResourceNodes resourceNodes in IronGoldDepositList)
         {
             if (resourceNodes.IsResourceNodeSpawned)
             {
                 i++;
             }
 
-            if(i <= lowAmountOfResourceNodes)
-            {
-                SpawnRandomResourceNode();
-            }
+        }
+
+        if (i <= lowAmountOfResourceNodes)
+        {
+            SpawnRandomResourceNode();
         }
     }
 
     void SubscribeToResourceNodesCollection()
     {
-        foreach (ResourceNodes resourceNodes in ironGoldDepositList)
+        foreach (ResourceNodes resourceNodes in IronGoldDepositList)
         {
             resourceNodes.OnCollectMaterials += SpawnOnLowResourceNodes;
         }
@@ -79,7 +81,7 @@ public class ResourcesSpawnManager : MonoBehaviour
 
     ResourceNodes GetNotSpanwedResourceNode()
     {
-        foreach (ResourceNodes resourceNodes in ironGoldDepositList)
+        foreach (ResourceNodes resourceNodes in IronGoldDepositList)
         {
             if (!resourceNodes.IsResourceNodeSpawned)
             {
@@ -92,7 +94,7 @@ public class ResourcesSpawnManager : MonoBehaviour
 
     void InitialSpawnResources()
     {
-        foreach (ResourceNodes item in ironGoldDepositList)
+        foreach (ResourceNodes item in IronGoldDepositList)
         {
             if(GetRandomInt100() >= 50)
             {

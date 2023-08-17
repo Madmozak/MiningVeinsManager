@@ -4,18 +4,13 @@ using UnityEngine;
 public class ResourceNode : MonoBehaviour
 {
     ScriptableObject resource;
-    public Action OnCollectMaterials;
 
 
-    void Start()
-    {
-        
-    }
 
     public void CollectMaterials()
     {
         //add materials to inventory
-        OnCollectMaterials?.Invoke();
+
         DisableNode();
     }
 
