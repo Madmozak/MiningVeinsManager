@@ -19,6 +19,7 @@ public class ResourceNodes : MonoBehaviour, IInteractable
         isResourceNodeSpawned = false;
     }
 
+
     public void SpawnResource()
     {
         if(ResourcesSpawnManager.Instance.GetRandomInt100() < ResourcesSpawnManager.Instance.RareResourceSpawnChance)

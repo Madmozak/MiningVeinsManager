@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ResourcesSpawnManager : MonoBehaviour
 {
-    private static ResourcesSpawnManager instance;
+    [SerializeField]private static ResourcesSpawnManager instance;
     public static ResourcesSpawnManager Instance { get => instance; }
     public int RareResourceSpawnChance { get => rareResourceSpawnChance; set => rareResourceSpawnChance = value; }
 
@@ -13,7 +13,10 @@ public class ResourcesSpawnManager : MonoBehaviour
     [SerializeField] float timeToSpawnResourceNode = 30;
     float timerForSpawn;
 
-    
+    private void Awake()
+    {
+        instance = this;
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -23,7 +26,17 @@ public class ResourcesSpawnManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        PeriodicResourceNodeSpawnLogic();
+    }
+
+    void PeriodicResourceNodeSpawnLogic()
+    {
         timerForSpawn += Time.deltaTime;
+        if (timerForSpawn >= timeToSpawnResourceNode)
+        {
+            SpawnRandomResourceNode();
+            timerForSpawn = 0;
+        }
     }
 
 
@@ -33,7 +46,6 @@ public class ResourcesSpawnManager : MonoBehaviour
         if(rns != null)
         {
             rns.SpawnResource();
-            rns.IsResourceNodeSpawned = true;
         }
     }
 
@@ -61,11 +73,7 @@ public class ResourcesSpawnManager : MonoBehaviour
         }
     }
 
-
-    public int GetRandomInt100()
-    {
-        return Random.Range(0, 100);
-    }
+    public int GetRandomInt100() => Random.Range(0, 100);
 
 
 }
